@@ -19,42 +19,42 @@ trans = data.frame(
 
 # COUPON_LIST_TRAIN.CSV
 coupon_list_train = read.csv("Data/coupon_list_train.csv", as.is=T) # Read data file to translate
-names(trans) = c("jp", "en_capsule") # Rename column
+names(trans) = c("jp", "en_CAPSULE_TEXT") # Rename column
 coupon_list_train = merge(coupon_list_train, trans, by.x = "CAPSULE_TEXT", by.y = "jp", all.x = T) # Join translation onto original data
-names(trans) = c("jp", "en_genre"); coupon_list_train = merge(coupon_list_train, trans, by.x = "GENRE_NAME", by.y = "jp", all.x = T)
+names(trans) = c("jp", "en_GENRE_NAME"); coupon_list_train = merge(coupon_list_train, trans, by.x = "GENRE_NAME", by.y = "jp", all.x = T)
 names(trans) = c("jp", "en_small_area"); coupon_list_train = merge(coupon_list_train, trans, by.x = "small_area_name", by.y = "jp", all.x = T)
-names(trans) = c("jp", "en_ken"); coupon_list_train = merge(coupon_list_train, trans, by.x = "ken_name", by.y=  "jp", all.x = T)
-names(trans) = c("jp", "en_large_area"); coupon_list_train = merge(coupon_list_train, trans, by.x = "large_area_name", by.y = "jp", all.x = T)
+names(trans) = c("jp", "en_ken_name"); coupon_list_train = merge(coupon_list_train, trans, by.x = "ken_name", by.y=  "jp", all.x = T)
+names(trans) = c("jp", "en_large_area_name"); coupon_list_train = merge(coupon_list_train, trans, by.x = "large_area_name", by.y = "jp", all.x = T)
 write.csv(coupon_list_train, "Data/coupon_list_train_en.csv", row.names = F)
 
 # COUPON_AREA_TRAIN.CSV
 coupon_area_train = read.csv("Data/coupon_area_train.csv", as.is = T) 
-names(trans) = c("jp", "en_small_area"); coupon_area_train = merge(coupon_area_train, trans, by.x = "SMALL_AREA_NAME", by.y = "jp", all.x = T)
-names(trans) = c("jp", "en_pref"); coupon_area_train = merge(coupon_area_train, trans, by.x = "PREF_NAME", by.y = "jp", all.x = T)
+names(trans) = c("jp", "en_SMALL_AREA_NAME"); coupon_area_train = merge(coupon_area_train, trans, by.x = "SMALL_AREA_NAME", by.y = "jp", all.x = T)
+names(trans) = c("jp", "en_SMALL_AREA_NAME"); coupon_area_train = merge(coupon_area_train, trans, by.x = "PREF_NAME", by.y = "jp", all.x = T)
 write.csv(coupon_area_train, "Data/coupon_area_train_en.csv", row.names = F)
 
 # COUPON_LIST_TEST.CSV
 coupon_list_test = read.csv("Data/coupon_list_test.csv", as.is = T) # Read data file to translate
-names(trans) = c("jp", "en_capsule") # Rename column
+names(trans) = c("jp", "en_CAPSULE_TEXT") # Rename column
 coupon_list_test = merge(coupon_list_test, trans, by.x = "CAPSULE_TEXT", by.y = "jp", all.x = T) # Join translation onto original data
-names(trans) = c("jp", "en_genre"); coupon_list_test = merge(coupon_list_test, trans, by.x = "GENRE_NAME", by.y = "jp", all.x = T)
-names(trans) = c("jp", "en_small_area"); coupon_list_test = merge(coupon_list_test, trans, by.x = "small_area_name", by.y = "jp", all.x = T)
-names(trans) = c("jp", "en_ken"); coupon_list_test = merge(coupon_list_test, trans, by.x = "ken_name", by.y=  "jp", all.x = T)
-names(trans) = c("jp", "en_large_area"); coupon_list_test = merge(coupon_list_test, trans, by.x = "large_area_name", by.y = "jp", all.x = T)
+names(trans) = c("jp", "en_GENRE_NAME"); coupon_list_test = merge(coupon_list_test, trans, by.x = "GENRE_NAME", by.y = "jp", all.x = T)
+names(trans) = c("jp", "en_small_area_name"); coupon_list_test = merge(coupon_list_test, trans, by.x = "small_area_name", by.y = "jp", all.x = T)
+names(trans) = c("jp", "en_ken_name"); coupon_list_test = merge(coupon_list_test, trans, by.x = "ken_name", by.y=  "jp", all.x = T)
+names(trans) = c("jp", "en_large_area_name"); coupon_list_test = merge(coupon_list_test, trans, by.x = "large_area_name", by.y = "jp", all.x = T)
 write.csv(coupon_list_test, "Data/coupon_list_test_en.csv", row.names = F)
 
 # COUPON_AREA_TEST.CSV
 coupon_area_test = read.csv("Data/coupon_area_test.csv", as.is = T) 
-names(trans) = c("jp", "en_small_area"); coupon_area_test = merge(coupon_area_test, trans, by.x = "SMALL_AREA_NAME", by.y = "jp", all.x = T)
-names(trans) = c("jp", "en_pref"); coupon_area_test = merge(coupon_area_test, trans, by.x = "PREF_NAME", by.y = "jp", all.x = T)
+names(trans) = c("jp", "en_SMALL_AREA_NAME"); coupon_area_test = merge(coupon_area_test, trans, by.x = "SMALL_AREA_NAME", by.y = "jp", all.x = T)
+names(trans) = c("jp", "en_PREF_NAME"); coupon_area_test = merge(coupon_area_test, trans, by.x = "PREF_NAME", by.y = "jp", all.x = T)
 write.csv(coupon_area_test, "Data/coupon_area_test_en.csv", row.names = F)
 
 # COUPON_DETAIL_TRAIN
 coupon_detail_train = read.csv("Data/coupon_detail_train.csv", as.is = T) 
-names(trans) = c("jp", "en_small_area"); coupon_detail_train = merge(coupon_detail_train, trans, by.x = "SMALL_AREA_NAME", by.y = "jp", all.x = T)
+names(trans) = c("jp", "en_SMALL_AREA_NAME"); coupon_detail_train = merge(coupon_detail_train, trans, by.x = "SMALL_AREA_NAME", by.y = "jp", all.x = T)
 write.csv(coupon_detail_train, "Data/coupon_detail_train_en.csv", row.names = F)
 
 # USER_LIST
 user_list = read.csv("Data/user_list.csv", as.is = T) 
-names(trans) = c("jp", "en_pref"); user_list = merge(user_list, trans, by.x = "PREF_NAME", by.y = "jp", all.x = T)
-write.csv(coupon_area_test, "Data/user_list_en.csv", row.names = F)
+names(trans) = c("jp", "en_PREF"); user_list = merge(user_list, trans, by.x = "PREF_NAME", by.y = "jp", all.x = T)
+write.csv(user_list, "Data/user_list_en.csv", row.names = F)
