@@ -22,7 +22,7 @@ coupon_list_train = read.csv("Data/coupon_list_train.csv", as.is=T) # Read data 
 names(trans) = c("jp", "en_CAPSULE_TEXT") # Rename column
 coupon_list_train = merge(coupon_list_train, trans, by.x = "CAPSULE_TEXT", by.y = "jp", all.x = T) # Join translation onto original data
 names(trans) = c("jp", "en_GENRE_NAME"); coupon_list_train = merge(coupon_list_train, trans, by.x = "GENRE_NAME", by.y = "jp", all.x = T)
-names(trans) = c("jp", "en_small_area"); coupon_list_train = merge(coupon_list_train, trans, by.x = "small_area_name", by.y = "jp", all.x = T)
+names(trans) = c("jp", "en_small_area_name"); coupon_list_train = merge(coupon_list_train, trans, by.x = "small_area_name", by.y = "jp", all.x = T)
 names(trans) = c("jp", "en_ken_name"); coupon_list_train = merge(coupon_list_train, trans, by.x = "ken_name", by.y=  "jp", all.x = T)
 names(trans) = c("jp", "en_large_area_name"); coupon_list_train = merge(coupon_list_train, trans, by.x = "large_area_name", by.y = "jp", all.x = T)
 write.csv(coupon_list_train, "Data/coupon_list_train_en.csv", row.names = F)

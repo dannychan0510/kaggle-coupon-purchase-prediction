@@ -13,10 +13,10 @@ user_list <- read.csv("Data/user_list_en.csv")
 train <- merge(coupon_detail_train, coupon_list_train, by = "COUPON_ID_hash")
 train <- merge(train, user_list, by = "USER_ID_hash")
 train <- train[,c("COUPON_ID_hash","USER_ID_hash",
-                  "GENRE_NAME","DISCOUNT_PRICE","PRICE_RATE",
+                  "en_GENRE_NAME","DISCOUNT_PRICE","PRICE_RATE",
                   "USABLE_DATE_MON","USABLE_DATE_TUE","USABLE_DATE_WED","USABLE_DATE_THU",
                   "USABLE_DATE_FRI","USABLE_DATE_SAT","USABLE_DATE_SUN","USABLE_DATE_HOLIDAY",
-                  "USABLE_DATE_BEFORE_HOLIDAY","ken_name","small_area_name")]
+                  "USABLE_DATE_BEFORE_HOLIDAY","en_ken_name","en_small_area_name")]
 
 # Combine the test set with the train
 cplte$USER_ID_hash <- "dummyuser"
