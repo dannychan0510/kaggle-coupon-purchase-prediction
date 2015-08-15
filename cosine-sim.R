@@ -4,13 +4,13 @@
 setwd("~/Documents/R/kaggle-coupon-purchase-prediction")
 
 # Read in all the input data
-cpdtr <- read.csv("../Data/coupon_detail_train.csv")
-cpltr <- read.csv("../Data/coupon_list_train.csv")
-cplte <- read.csv("../Data/coupon_list_test.csv")
-ulist <- read.csv("../Data/user_list.csv")
+coupon_detail_train_en <- read.csv("Data/coupon_detail_train_en.csv")
+coupon_list_train_en <- read.csv("Data/coupon_list_train_en.csv")
+coupon_list_test <- read.csv("Data/coupon_list_test_en.csv")
+user_list <- read.csv("Data/user_list.csv")
 
 # Making of the train set
-train <- merge(cpdtr,cpltr)
+train <- merge(coupon_detail_train_en, coupon_list_train_en, by = "COUPON_ID_hash")
 train <- train[,c("COUPON_ID_hash","USER_ID_hash",
                   "GENRE_NAME","DISCOUNT_PRICE","PRICE_RATE",
                   "USABLE_DATE_MON","USABLE_DATE_TUE","USABLE_DATE_WED","USABLE_DATE_THU",

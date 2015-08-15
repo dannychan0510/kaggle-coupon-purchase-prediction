@@ -52,7 +52,7 @@ write.csv(coupon_area_test, "Data/coupon_area_test_en.csv", row.names = F)
 # COUPON_DETAIL_TRAIN
 coupon_detail_train = read.csv("Data/coupon_detail_train.csv", as.is = T) 
 names(trans) = c("jp", "en_small_area"); coupon_detail_train = merge(coupon_detail_train, trans, by.x = "SMALL_AREA_NAME", by.y = "jp", all.x = T)
-write.csv(coupon_area_test, "Data/coupon_detail_train_en.csv", row.names = F)
+write.csv(coupon_detail_train, "Data/coupon_detail_train_en.csv", row.names = F)
 
 # USER_LIST
 user_list = read.csv("Data/user_list.csv", as.is = T) 
