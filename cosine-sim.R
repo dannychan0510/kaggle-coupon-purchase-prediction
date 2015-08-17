@@ -29,6 +29,7 @@ train <- rbind(train, coupon_char)
 
 # NA imputation
 train[is.na(train)] <- 1
+train[6:14][train[6:14] == 2] <- 1 # Currently the USABLE_DATE variables contain 2s. Assume to be 1s for the time being, but will continue to watch out for responses on the forums.
 
 # Feature engineering
 train$DISCOUNT_PRICE <- 1/log10(train$DISCOUNT_PRICE)
@@ -36,7 +37,9 @@ train$PRICE_RATE <- (train$PRICE_RATE*train$PRICE_RATE)/(100*100)
 
 # Convert the factors to columns of 0's and 1's
 train <- cbind(train[,c(1,2)],model.matrix(~ -1 + ., train[, -c(1, 2)],
-                                           contrasts.arg = lapply(train[, names(which(sapply(train[ , -c(1, 2)], is.factor) ==     TRUE))], contrasts, contrasts = FALSE)))
+                                           contrasts.arg = lapply(train[, names(which(sapply(train[ , -c(1, 2)], is.factor) == TRUE))], contrasts, contrasts = FALSE)))
+
+
 
 # Separate the test from train
 test <- train[train$USER_ID_hash == "dummyuser",]
@@ -48,8 +51,10 @@ user_char <- aggregate( . ~ USER_ID_hash, data = train[, -1], FUN = mean)
 
 # Weight Matrix: GENRE_NAME DISCOUNT_PRICE PRICE_RATE USABLE_DATE_ ken_name small_area_name
 require(Matrix)
-W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(0,9), rep(3,47), rep(3,55)))) # 0.005914
-W <- as.matrix(Diagonal(x=c(rep(4,13), rep(1,1), rep(0.2,1), rep(0,9), rep(3,47), rep(3,55)))) # 0.005914
+# W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(0,9), rep(3,47), rep(3,55)))) # 0.005914
+# W <- as.matrix(Diagonal(x=c(rep(4,13), rep(1,1), rep(0.2,1), rep(0,9), rep(3,47), rep(3,55)))) # 0.005914
+# W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(1,9), rep(3,47), rep(3,55)))) # Takes into account the USABLE_DATE, # 0.005106
+W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(0.2,9), rep(3,47), rep(3,55)))) # 0.005561
 
 # Calculation of cosine similairties of users and coupons
 score = as.matrix(user_char[, 2:ncol(user_char)]) %*% W %*% t(as.matrix(test[, 2:ncol(test)]))

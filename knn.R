@@ -17,18 +17,15 @@ coupon_id <- unique(train$COUPON_ID_hash)
 
 knn <- expand.grid(a = user_id, b = coupon_id)
 
-knn$bought <- paste(knn$a, knn$b) %in% paste(train$USER_ID_hash, train$COUPON_ID_hash)
-
-one <- paste(knn$a, knn$b) 
-two <- paste(train$USER_ID_hash, train$COUPON_ID_hash)
-
-k.nearest.neighbors <- function(i, distances, k = 25)
-{
-  return(order(distances[i, ])[2:(k+1)])
-}
-
-installation.probability <- function(user, package, train2, distances, k = 25)
-{
-  neighbors <- k.nearest.neighbors(package, distances, k = k)
-  return(mean(sapply(neighbors, function (neighbor) {train2[user,neighbor]})))
-}
+# knn$bought <- paste(knn$a, knn$b) %in% paste(train$USER_ID_hash, train$COUPON_ID_hash) # This doesn't work, as it requires high computational power. KNN probably not a good method computationally to use in this dataset as it is too taxing on the computer.
+# 
+# k.nearest.neighbors <- function(i, distances, k = 25)
+# {
+#   return(order(distances[i, ])[2:(k+1)])
+# }
+# 
+# installation.probability <- function(user, package, train2, distances, k = 25)
+# {
+#   neighbors <- k.nearest.neighbors(package, distances, k = k)
+#   return(mean(sapply(neighbors, function (neighbor) {train2[user,neighbor]})))
+# }
