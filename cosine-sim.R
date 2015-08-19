@@ -29,7 +29,7 @@ train <- rbind(train, coupon_char)
 
 # NA imputation
 train[is.na(train)] <- 1
-train[6:14][train[6:14] == 2] <- 1 # Currently the USABLE_DATE variables contain 2s. Assume to be 1s for the time being, but will continue to watch out for responses on the forums.
+# train[6:14][train[6:14] == 2] <- 1 # Currently the USABLE_DATE variables contain 2s. Assume to be 1s for the time being, but will continue to watch out for responses on the forums.
 
 # Feature engineering
 train$DISCOUNT_PRICE <- 1/log10(train$DISCOUNT_PRICE)
@@ -51,10 +51,11 @@ user_char <- aggregate( . ~ USER_ID_hash, data = train[, -1], FUN = mean)
 
 # Weight Matrix: GENRE_NAME DISCOUNT_PRICE PRICE_RATE USABLE_DATE_ ken_name small_area_name
 require(Matrix)
-# W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(0,9), rep(3,47), rep(3,55)))) # 0.005914
+W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(0,9), rep(3,47), rep(3,55)))) # 0.005914
 # W <- as.matrix(Diagonal(x=c(rep(4,13), rep(1,1), rep(0.2,1), rep(0,9), rep(3,47), rep(3,55)))) # 0.005914
 # W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(1,9), rep(3,47), rep(3,55)))) # Takes into account the USABLE_DATE, # 0.005106
-W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(0.2,9), rep(3,47), rep(3,55)))) # 0.005561
+# W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(0.2,9), rep(3,47), rep(3,55)))) # 0.005561
+# W <- as.matrix(Diagonal(x=c(rep(1,13), rep(1,1), rep(1,1), rep(1,9), rep(1,47), rep(1,55)))) # 0.000427
 
 # Calculation of cosine similairties of users and coupons
 score = as.matrix(user_char[, 2:ncol(user_char)]) %*% W %*% t(as.matrix(test[, 2:ncol(test)]))

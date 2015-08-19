@@ -58,3 +58,8 @@ write.csv(coupon_detail_train, "Data/coupon_detail_train_en.csv", row.names = F)
 user_list = read.csv("Data/user_list.csv", as.is = T) 
 names(trans) = c("jp", "en_PREF"); user_list = merge(user_list, trans, by.x = "PREF_NAME", by.y = "jp", all.x = T)
 write.csv(user_list, "Data/user_list_en.csv", row.names = F)
+
+# USER_LIST
+prefecture_locations = read.csv("Data/prefecture_locations.csv", as.is = T) 
+names(trans) = c("jp", "en_PREF"); prefecture_locations = merge(prefecture_locations, trans, by.x = "PREF_NAME", by.y = "jp", all.x = T)
+write.csv(user_list, "Data/prefecture_locations_en.csv", row.names = F)
