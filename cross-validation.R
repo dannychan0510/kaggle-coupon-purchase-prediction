@@ -100,13 +100,14 @@ train <- train[train$USER_ID_hash != "dummyuser",]
 
 # Data frame of user characteristics
 user_char <- aggregate( . ~ USER_ID_hash, data = train[, -1], FUN = mean)
+user_char2 <- user_char 
 
 # Weight Matrix: GENRE_NAME DISCOUNT_PRICE PRICE_RATE USABLE_DATE_ ken_name small_area_name
 require(Matrix)
-W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(0,9), rep(3,47), rep(3,55)))) # 0.005914
+W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(1,9), rep(0,47), rep(0,55)))) # 0.005914
 
 # Calculation of cosine similairties of users and coupons
-score = as.matrix(user_char[, 2:ncol(user_char)]) %*% W %*% t(as.matrix(test[, 2:ncol(test)]))
+score = as.matrix(user_char[, 2:ncol(user_char)]) %*% t(as.matrix(test[, 2:ncol(test)]))
 
 # Order the list of coupons according to similairties and take only first 10 coupons
 user_char$PURCHASED_COUPONS <- do.call(rbind, lapply(1:nrow(user_char), FUN=function(i){
@@ -114,6 +115,17 @@ user_char$PURCHASED_COUPONS <- do.call(rbind, lapply(1:nrow(user_char), FUN=func
   return(purchased_cp)
 }))
 
+
 # Make submission
-submission <- merge(user_list, user_char, all.x=TRUE)
-submission <- submission[,c("USER_ID_hash","PURCHASED_COUPONS")]
+submission1 <- merge(user_list, user_char, all.x=TRUE)
+submission1 <- submission[,c("USER_ID_hash","PURCHASED_COUPONS")]
+
+# Calculating MAP@10
+predictions <- strsplit(submission[, 2], " ")
+actuals <- aggregate(COUPON_ID_hash ~ USER_ID_hash, data = coupon_detail_test_cv, FUN = paste, collapse = " ")
+temp <- data.frame(submission$USER_ID_hash)
+names(temp) <- "USER_ID_hash"
+actuals <- merge(temp, actuals, by = "USER_ID_hash", all = TRUE)
+actuals[is.na(actuals)] <- "0"
+actuals <- strsplit(actuals[, 2], " ")
+mapk(10, actuals, predictions)

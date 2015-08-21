@@ -51,7 +51,7 @@ user_char <- aggregate( . ~ USER_ID_hash, data = train[, -1], FUN = mean)
 
 # Weight Matrix: GENRE_NAME DISCOUNT_PRICE PRICE_RATE USABLE_DATE_ ken_name small_area_name
 require(Matrix)
-W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(0,9), rep(3,47), rep(3,55)))) # 0.005914
+W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(1,9), rep(3,47), rep(3,55)))) # 0.005914
 # W <- as.matrix(Diagonal(x=c(rep(4,13), rep(1,1), rep(0.2,1), rep(0,9), rep(3,47), rep(3,55)))) # 0.005914
 # W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(1,9), rep(3,47), rep(3,55)))) # Takes into account the USABLE_DATE, # 0.005106
 # W <- as.matrix(Diagonal(x=c(rep(3,13), rep(1,1), rep(0.2,1), rep(0.2,9), rep(3,47), rep(3,55)))) # 0.005561
@@ -67,6 +67,6 @@ user_char$PURCHASED_COUPONS <- do.call(rbind, lapply(1:nrow(user_char), FUN=func
 }))
 
 # Make submission
-submission <- merge(user_list, user_char, all.x=TRUE)
-submission <- submission[,c("USER_ID_hash","PURCHASED_COUPONS")]
-write.csv(submission, file="cosine_sim.csv", row.names=FALSE)
+submission1 <- merge(user_list, user_char, all.x=TRUE)
+submission1 <- submission[,c("USER_ID_hash","PURCHASED_COUPONS")]
+write.csv(submission1, file="cosine_sim1.csv", row.names=FALSE)
